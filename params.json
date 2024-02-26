@@ -1,0 +1,7 @@
+{
+  "input_matrix": "File",
+  "clustering_dimension": "String",
+  "distance_metric": "String",
+  "linkage": "String"
+}
+

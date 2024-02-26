@@ -1,0 +1,72 @@
+{
+    "name": "Hierarchical clustering (HCL)", 
+    "description": "Executes hierarchical clustering. Choose from samples/observations, genes/features, or both. Note that the feature clustering can take a significant amount of time.", 
+    "inputs": {
+        "input_matrix": {
+            "description": "The input matrix. For example, a gene expression matrix for a cohort of samples.", 
+            "name": "Input matrix:", 
+            "required": true, 
+            "converter": "api.converters.data_resource.RemoteNextflowSingleVariableDataResourceConverter",
+            "spec": {
+                "attribute_type": "VariableDataResource", 
+                "resource_types": ["MTX","I_MTX", "EXP_MTX", "RNASEQ_COUNT_MTX"], 
+                "many": false
+            }
+        }, 
+        "distance_metric": {
+            "description":"The distance metric for the clustering. Determines how we measure the similarity of observations or features.",
+            "name":"Distance metric:",
+            "required": false,
+            "converter": "api.converters.basic_attributes.StringConverter",
+            "spec": {
+                "attribute_type": "OptionString",
+                "default": "euclidean",
+                "options": ["euclidean","cityblock","correlation", "cosine", "mahalanobis"]
+            }
+        },
+        "clustering_dimension": {
+            "description":"The clustering dimension. Should we cluster the samples/observations, the features/genes, or both?",
+            "name":"Cluster dimension:",
+            "required": false,
+            "converter": "api.converters.basic_attributes.StringConverter",
+            "spec": {
+                "attribute_type": "OptionString",
+                "default": "observations",
+                "options": ["both","observations", "features"]
+            }
+        },
+        "linkage": {
+            "description":"How the clusters are determined. ",
+            "name":"Linkage choice:",
+            "required": false,
+            "converter": "api.converters.basic_attributes.StringConverter",
+            "spec": {
+                "attribute_type": "OptionString",
+                "default": "ward",
+                "options": ["ward", "complete", "average", "single"]
+            }
+        }
+    }, 
+    "outputs": {
+        "observation_clusters": {
+            "required": false,
+            "converter": "api.converters.data_resource.RemoteNextflowSingleDataResourceConverter",
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_type": "JSON",
+                "many": false
+            }
+        },
+        "feature_clusters": {
+            "required": false,
+            "converter": "api.converters.data_resource.RemoteNextflowSingleDataResourceConverter",
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_type": "JSON",
+                "many": false
+            }
+        }
+    }, 
+    "mode": "nf_batch",
+    "workspace_operation": true
+}
