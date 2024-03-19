@@ -17,7 +17,7 @@ process run_hcl {
         """
         echo "{}" > obs.tsv
         echo "{}" > feat.tsv
-        python3 /usr/local/bin/run_hcl.py -i ${input_file} \
+        python3 /usr/local/bin/run_hcl.py \
             -d ${params.distance_metric} \
             -l ${params.linkage} \
             -c ${params.clustering_dimension} \
